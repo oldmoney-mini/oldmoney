@@ -1,0 +1,393 @@
+Pattern Shape
+
+#include <stdio.h>
+
+// 1. Segitiga Sama Kaki (Isosceles)
+
+Input: n = 5
+Output:
+
+    *
+   ***
+  *****
+ *******
+*********
+
+void isosceles(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n-i-1;j++) printf(" ");
+        for(int j=0;j<2*i+1;j++) printf("*");
+        printf("\n");
+    }
+}
+
+// 2. Segitiga Sama Kaki Hollow
+
+Input: n = 5
+Output:
+
+    *
+   * *
+  *   *
+ *     *
+*********
+
+void isoscelesHollow(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n-i-1;j++) printf(" ");
+        for(int j=0;j<2*i+1;j++){
+            if(j==0 || j==2*i || i==n-1) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// 3. Segitiga Sama Kaki Terbalik
+
+Input: n = 5
+Output:
+
+*********
+ *******
+  *****
+   ***
+    *
+
+void invertedIsosceles(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<i;j++) printf(" ");
+        for(int j=0;j<2*(n-i)-1;j++) printf("*");
+        printf("\n");
+    }
+}
+
+// 4. Segitiga Sama Kaki Terbalik Hollow
+
+Input: n = 5
+Output:
+
+*********
+ *     *
+  *   *
+   * *
+    *
+
+void invertedIsoscelesHollow(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<i;j++) printf(" ");
+        for(int j=0;j<2*(n-i)-1;j++){
+            if(i==0 || j==0 || j==2*(n-i)-2) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// 5. Segitiga Siku-Siku
+
+Input: n = 5
+Output:
+
+*
+**
+***
+****
+*****
+
+void rightTriangle(int n){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=i;j++) printf("*");
+        printf("\n");
+    }
+}
+
+// 6. Segitiga Siku-Siku Hollow
+
+Input: n = 5
+Output:
+
+*
+**
+* *
+*  *
+*****
+
+void rightTriangleHollow(int n){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=i;j++){
+            if(j==1 || j==i || i==n) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// 7. Segitiga Siku-Siku Atas & Bawah Disambung
+
+Input: n = 5
+Output:
+
+*
+**
+***
+****
+*****
+****
+***
+**
+*
+
+void rightTriangleDouble(int n){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=i;j++) printf("*");
+        printf("\n");
+    }
+    for(int i=n-1;i>=1;i--){
+        for(int j=1;j<=i;j++) printf("*");
+        printf("\n");
+    }
+}
+
+// 8. Segitiga Siku-Siku Double Hollow
+
+Input: n = 5
+Output:
+
+*
+**
+* *
+*  *
+*****
+*  *
+* *
+**
+*
+
+void rightTriangleDoubleHollow(int n){
+    for(int i=1;i<=n;i++){
+        for(int j=1;j<=i;j++){
+            if(j==1 || j==i || i==n) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+    for(int i=n-1;i>=1;i--){
+        for(int j=1;j<=i;j++){
+            if(j==1 || j==i || i==n-1) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// 9. Diamond (Ketupat Bintang)
+
+Input: n = 5
+Output:
+
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *
+
+void diamond(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n-i-1;j++) printf(" ");
+        for(int j=0;j<2*i+1;j++) printf("*");
+        printf("\n");
+    }
+    for(int i=n-2;i>=0;i--){
+        for(int j=0;j<n-i-1;j++) printf(" ");
+        for(int j=0;j<2*i+1;j++) printf("*");
+        printf("\n");
+    }
+}
+
+// 10. Hollow Diamond
+
+Input: n = 5
+Output:
+
+    *
+   * *
+  *   *
+ *     *
+*       *
+ *     *
+  *   *
+   * *
+    *
+
+void hollowDiamond(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n-i-1;j++) printf(" ");
+        for(int j=0;j<2*i+1;j++){
+            if(j==0 || j==2*i) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+    for(int i=n-2;i>=0;i--){
+        for(int j=0;j<n-i-1;j++) printf(" ");
+        for(int j=0;j<2*i+1;j++){
+            if(j==0 || j==2*i) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// 11. X Pattern
+
+Input: n = 5
+Output:
+
+*   *
+ * * 
+  *  
+ * * 
+*   *
+
+void xPattern(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(j==i || j==n-i-1) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// 12. Persegi
+
+Input: n = 5
+Output:
+
+*****
+*****
+*****
+*****
+*****
+
+void square(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++) printf("*");
+        printf("\n");
+    }
+}
+
+// 13. Persegi Hollow
+
+Input: n = 5
+Output:
+
+*****
+*   *
+*   *
+*   *
+*****
+
+void squareHollow(int n){
+    for(int i=0;i<n;i++){
+        for(int j=0;j<n;j++){
+            if(i==0 || i==n-1 || j==0 || j==n-1) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// 14. Persegi Panjang
+
+Input: baris = 3, kolom = 7
+Output:
+
+*******
+*******
+*******
+
+void rectangle(int r, int c){
+    for(int i=0;i<r;i++){
+        for(int j=0;j<c;j++) printf("*");
+        printf("\n");
+    }
+}
+
+// 15. Persegi Panjang Hollow
+
+Input: baris = 4, kolom = 8
+Output:
+
+********
+*      *
+*      *
+********
+
+void rectangleHollow(int r, int c){
+    for(int i=0;i<r;i++){
+        for(int j=0;j<c;j++){
+            if(i==0 || i==r-1 || j==0 || j==c-1) printf("*");
+            else printf(" ");
+        }
+        printf("\n");
+    }
+}
+
+// MAIN PROGRAM
+int main(){
+    int choice, n, r, c;
+
+    printf("Pilih Pola:\n");
+    printf("1. Segitiga Sama Kaki\n");
+    printf("2. Segitiga Sama Kaki Hollow\n");
+    printf("3. Segitiga Sama Kaki Terbalik\n");
+    printf("4. Segitiga Sama Kaki Terbalik Hollow\n");
+    printf("5. Segitiga Siku-Siku\n");
+    printf("6. Segitiga Siku-Siku Hollow\n");
+    printf("7. Segitiga Siku-Siku Double\n");
+    printf("8. Segitiga Siku-Siku Double Hollow\n");
+    printf("9. Diamond\n");
+    printf("10. Hollow Diamond\n");
+    printf("11. X Pattern\n");
+    printf("12. Persegi\n");
+    printf("13. Persegi Hollow\n");
+    printf("14. Persegi Panjang\n");
+    printf("15. Persegi Panjang Hollow\n");
+    printf("Pilihan: ");
+    scanf("%d", &choice);
+
+    if(choice>=1 && choice<=13){
+        printf("Masukkan n: ");
+        scanf("%d", &n);
+    } else if(choice==14 || choice==15){
+        printf("Masukkan baris dan kolom: ");
+        scanf("%d %d", &r, &c);
+    }
+
+    switch(choice){
+        case 1: isosceles(n); break;
+        case 2: isoscelesHollow(n); break;
+        case 3: invertedIsosceles(n); break;
+        case 4: invertedIsoscelesHollow(n); break;
+        case 5: rightTriangle(n); break;
+        case 6: rightTriangleHollow(n); break;
+        case 7: rightTriangleDouble(n); break;
+        case 8: rightTriangleDoubleHollow(n); break;
+        case 9: diamond(n); break;
+        case 10: hollowDiamond(n); break;
+        case 11: xPattern(n); break;
+        case 12: square(n); break;
+        case 13: squareHollow(n); break;
+        case 14: rectangle(r,c); break;
+        case 15: rectangleHollow(r,c); break;
+        default: printf("Pilihan tidak valid!\n");
+    }
+
+    return 0;
+}

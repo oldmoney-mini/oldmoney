@@ -1,0 +1,181 @@
+Advanced Logic
+
+Array + Fungsi
+
+Soal: Buat fungsi hitungJumlah() yang menerima array dan ukuran array, lalu kembalikan jumlah total elemennya.
+
+Input:
+
+5
+1 2 3 4 5
+
+
+Output:
+
+Jumlah = 15
+
+#include <stdio.h>
+
+int hitungJumlah(int arr[], int n){
+    int sum=0;
+    for(int i=0;i<n;i++) sum+=arr[i];
+    return sum;
+}
+
+int main(){
+    int n;
+    scanf("%d", &n);
+    int arr[n];
+    for(int i=0;i<n;i++) scanf("%d", &arr[i]);
+
+    printf("Jumlah = %d\n", hitungJumlah(arr, n));
+    return 0;
+}
+
+String + Perulangan
+
+Soal: Buat program yang menghitung jumlah huruf vokal dalam sebuah kata.
+
+Input:
+
+programming
+
+
+Output:
+
+Jumlah vokal = 3
+
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+
+int main(){
+    char str[100];
+    scanf("%s", str);
+
+    int vokal=0;
+    for(int i=0;i<strlen(str);i++){
+        char c = tolower(str[i]);
+        if(c=='a' || c=='i' || c=='u' || c=='e' || c=='o') vokal++;
+    }
+
+    printf("Jumlah vokal = %d\n", vokal);
+    return 0;
+}
+
+Array + Sorting + If
+
+Soal: Masukkan n angka, urutkan dari kecil ke besar, lalu cetak angka terbesar.
+
+Input:
+
+5
+10 4 7 2 9
+
+
+Output:
+
+2 4 7 9 10
+Terbesar = 10
+
+#include <stdio.h>
+
+int main(){
+    int n;
+    scanf("%d", &n);
+    int arr[n];
+
+    for(int i=0;i<n;i++) scanf("%d", &arr[i]);
+
+    // bubble sort
+    for(int i=0;i<n-1;i++){
+        for(int j=0;j<n-i-1;j++){
+            if(arr[j] > arr[j+1]){
+                int tmp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = tmp;
+            }
+        }
+    }
+
+    for(int i=0;i<n;i++) printf("%d ", arr[i]);
+    printf("\nTerbesar = %d\n", arr[n-1]);
+
+    return 0;
+}
+
+Fungsi + String (Palindrome)
+
+Soal: Buat fungsi isPalindrome() untuk mengecek apakah sebuah kata palindrome.
+
+Input:
+
+katak
+
+
+Output:
+
+Palindrome
+
+#include <stdio.h>
+#include <string.h>
+
+int isPalindrome(char s[]){
+    int len = strlen(s);
+    for(int i=0;i<len/2;i++){
+        if(s[i]!=s[len-1-i]) return 0;
+    }
+    return 1;
+}
+
+int main(){
+    char str[100];
+    scanf("%s", str);
+
+    if(isPalindrome(str)) printf("Palindrome\n");
+    else printf("Bukan Palindrome\n");
+
+    return 0;
+}
+
+Array + Fungsi + Perulangan (Median)
+
+Soal: Masukkan n angka, lalu cari median (nilai tengah setelah diurutkan).
+
+Input:
+
+5
+5 2 9 1 7
+
+
+Output:
+
+Median = 5
+
+#include <stdio.h>
+
+void bubbleSort(int arr[], int n){
+    for(int i=0;i<n-1;i++){
+        for(int j=0;j<n-i-1;j++){
+            if(arr[j] > arr[j+1]){
+                int tmp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = tmp;
+            }
+        }
+    }
+}
+
+int main(){
+    int n;
+    scanf("%d", &n);
+    int arr[n];
+    for(int i=0;i<n;i++) scanf("%d", &arr[i]);
+
+    bubbleSort(arr, n);
+
+    if(n%2==1) printf("Median = %d\n", arr[n/2]);
+    else printf("Median = %.1f\n", (arr[n/2-1]+arr[n/2])/2.0);
+
+    return 0;
+}

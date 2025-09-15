@@ -1,0 +1,257 @@
+Basic Logic
+
+Palindrome
+
+Contoh Input: katak
+Output: Palindrome
+
+Contoh Input: apel
+Output: Bukan Palindrome
+
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char str[100];
+    printf("Masukkan kata: ");
+    scanf("%s", str);
+
+    int len = strlen(str);
+    int isPal = 1;
+
+    for(int i=0; i<len/2; i++) {
+        if(str[i] != str[len-1-i]) {
+            isPal = 0;
+            break;
+        }
+    }
+
+    if(isPal)
+        printf("Palindrome\n");
+    else
+        printf("Bukan Palindrome\n");
+
+    return 0;
+}
+
+Faktorial
+
+Contoh Input: 5
+Output: Faktorial = 120
+
+#include <stdio.h>
+int main() {
+    int n;
+    printf("Masukkan angka: ");
+    scanf("%d", &n);
+
+    long long faktorial = 1;
+    for(int i=1; i<=n; i++){
+        faktorial *= i;
+    }
+
+    printf("Faktorial = %lld\n", faktorial);
+    return 0;
+}
+
+Fibonacci
+
+Contoh Input: 7
+Output:
+
+0 1 1 2 3 5 8
+
+#include <stdio.h>
+int main() {
+    int n;
+    printf("Masukkan jumlah deret Fibonacci: ");
+    scanf("%d", &n);
+
+    int a=0, b=1, next;
+    for(int i=1; i<=n; i++){
+        printf("%d ", a);
+        next = a + b;
+        a = b;
+        b = next;
+    }
+    printf("\n");
+    return 0;
+}
+
+Cek Bilangan Prima
+
+Contoh Input: 7
+Output: Prima
+
+Contoh Input: 8
+Output: Bukan Prima
+
+#include <stdio.h>
+int main() {
+    int n, isPrime=1;
+    printf("Masukkan angka: ");
+    scanf("%d", &n);
+
+    if(n < 2) isPrime = 0;
+    else {
+        for(int i=2; i*i<=n; i++){
+            if(n % i == 0){
+                isPrime = 0;
+                break;
+            }
+        }
+    }
+
+    if(isPrime) printf("Prima\n");
+    else printf("Bukan Prima\n");
+
+    return 0;
+}
+
+Perulangan
+
+Soal: Cetak angka dari 1 sampai n.
+Input: 5
+Output:
+
+1 2 3 4 5
+
+#include <stdio.h>
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    for(int i=1; i<=n; i++){
+        printf("%d ", i);
+    }
+    return 0;
+}
+
+If / Else
+
+Soal: Tentukan apakah sebuah angka genap atau ganjil.
+Input: 7
+Output:
+
+Ganjil
+
+#include <stdio.h>
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    if(n % 2 == 0) printf("Genap\n");
+    else printf("Ganjil\n");
+
+    return 0;
+}
+
+Switch
+
+Soal: Masukkan angka 1–3, tampilkan nama hari.
+Input: 2
+Output:
+
+Selasa
+
+#include <stdio.h>
+int main() {
+    int x;
+    scanf("%d", &x);
+
+    switch(x){
+        case 1: printf("Senin\n"); break;
+        case 2: printf("Selasa\n"); break;
+        case 3: printf("Rabu\n"); break;
+        default: printf("Tidak valid\n");
+    }
+    return 0;
+}
+
+Array
+
+Soal: Masukkan 5 angka, lalu cetak jumlah totalnya.
+Input:
+
+1 2 3 4 5
+
+Output:
+
+Jumlah = 15
+
+#include <stdio.h>
+int main() {
+    int arr[5], sum=0;
+    for(int i=0; i<5; i++){
+        scanf("%d", &arr[i]);
+        sum += arr[i];
+    }
+    printf("Jumlah = %d\n", sum);
+    return 0;
+}
+
+String
+
+Soal: Hitung panjang kata yang dimasukkan.
+Input:
+
+program
+
+Output:
+
+Panjang = 7
+
+#include <stdio.h>
+#include <string.h>
+int main() {
+    char str[100];
+    scanf("%s", str);
+    printf("Panjang = %d\n", (int)strlen(str));
+    return 0;
+}
+
+Fungsi
+
+Soal: Buat fungsi untuk menghitung kuadrat dari sebuah angka.
+Input: 6
+Output: 36
+
+#include <stdio.h>
+int kuadrat(int x){
+    return x*x;
+}
+int main() {
+    int n;
+    scanf("%d", &n);
+    printf("%d\n", kuadrat(n));
+    return 0;
+}
+
+Sorting (Bubble Sort)
+
+Soal: Urutkan 5 angka dari kecil ke besar.
+Input:
+
+5 3 4 1 2
+
+Output:
+
+1 2 3 4 5
+
+#include <stdio.h>
+int main() {
+    int arr[5];
+    for(int i=0; i<5; i++) scanf("%d", &arr[i]);
+
+    for(int i=0; i<4; i++){
+        for(int j=0; j<4-i; j++){
+            if(arr[j] > arr[j+1]){
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
+            }
+        }
+    }
+
+    for(int i=0; i<5; i++) printf("%d ", arr[i]);
+    return 0;
+}

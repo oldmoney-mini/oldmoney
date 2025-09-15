@@ -1,0 +1,135 @@
+Basic Logic
+
+📌 %d → integer
+📌 %f → float
+📌 %lf → double
+📌 %c → character
+📌 %s → string
+
+1. Struktur Dasar
+
+#include <stdio.h>
+
+int main() {
+    // kode kamu di sini
+    return 0;
+}
+
+2. Input / Output
+
+int x;
+scanf("%d", &x);   // input integer
+printf("%d\n", x); // output integer
+
+char str[50];
+scanf("%s", str);  // input string (tanpa spasi)
+printf("%s\n", str);
+
+3. Perulangan
+
+// For
+for(int i=0; i<5; i++){ printf("%d ", i); }
+
+// While
+int i=0;
+while(i<5){ printf("%d ", i); i++; }
+
+// Do While
+int j=0;
+do { printf("%d ", j); j++; } while(j<5);
+
+4. If / Else & Switch
+
+if(x > 0) printf("Positif");
+	else if(x < 0) printf("Negatif");
+	else printf("Nol");
+
+switch(x) {
+  case 1: printf("Satu"); break;
+  case 2: printf("Dua"); break;
+  default: printf("Lainnya");
+}
+
+5. Array
+
+int arr[5] = {1,2,3,4,5};
+for(int i=0; i<5; i++){
+    printf("%d ", arr[i]);
+}
+
+6. String
+
+#include <string.h>
+
+char s[100];
+scanf("%s", s);
+printf("Panjang: %d\n", strlen(s));
+printf("Balik: ");
+for(int i=strlen(s)-1; i>=0; i--){
+    printf("%c", s[i]);
+}
+
+7. Fungsi
+
+int tambah(int a, int b){
+    return a+b;
+}
+
+int main() {
+    printf("%d\n", tambah(3,4)); // 7
+}
+
+8. Pola Bintang (Template Penting)
+
+for(int i=1; i<=n; i++){        // baris
+    for(int j=1; j<=i; j++){    // kolom
+        printf("* ");
+    }
+    printf("\n");
+}
+
+9. Faktorial
+
+long long f=1;
+for(int i=1; i<=n; i++) f*=i;
+printf("%lld\n", f);
+
+10. Fibonacci
+int a=0, b=1, next;
+for(int i=1; i<=n; i++){
+    printf("%d ", a);
+    next = a+b;
+    a = b;
+    b = next;
+}
+
+11. Cek Bilangan Prima
+
+int prime=1;
+if(n<2) prime=0;
+for(int i=2; i*i<=n; i++){
+    if(n%i==0){ prime=0; break; }
+}
+printf(prime ? "Prima" : "Bukan Prima");
+
+12. Palindrome (String)
+
+int pal=1;
+for(int i=0; i<strlen(s)/2; i++){
+    if(s[i] != s[strlen(s)-1-i]) { pal=0; break; }
+}
+printf(pal ? "Palindrome" : "Bukan");
+
+13. Sorting (Bubble Sort → sering muncul)
+
+int arr[5] = {5,2,4,1,3}, n=5;
+for(int i=0;i<n-1;i++){
+    for(int j=0;j<n-i-1;j++){
+        if(arr[j] > arr[j+1]){
+            int tmp = arr[j];
+            arr[j] = arr[j+1];
+            arr[j+1] = tmp;
+        }
+    }
+}
+for(int i=0;i<n;i++) printf("%d ", arr[i]);

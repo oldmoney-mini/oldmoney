@@ -1,0 +1,116 @@
+SQL Fundamental Example
+
+1. DDL (Data Definition Language)
+
+👉 Fungsi: Membuat & mengatur struktur tabel/database.
+
+Contoh Soal: Buat tabel users dengan kolom id (PK), username, email, password.
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL
+);
+
+🔹 2. DML (Data Manipulation Language)
+
+👉 Fungsi: Menambah, mengubah, menghapus data.
+
+Soal Insert: Tambahkan user baru.
+
+INSERT INTO users (username, email, password)
+VALUES ('Gerry', 'gerry@mail.com', '12345');
+
+
+Soal Update: Ubah password Gerry.
+
+UPDATE users SET password = 'newpass123'
+WHERE username = 'Gerry';
+
+
+Soal Delete: Hapus user dengan email budi@mail.com.
+
+DELETE FROM users WHERE email = 'budi@mail.com';
+
+🔹 3. SELECT (Dasar)
+
+👉 Fungsi: Menampilkan data dengan filter.
+
+Soal: Tampilkan semua user dengan email @mail.com.
+
+SELECT * FROM users
+WHERE email LIKE '%@mail.com';
+
+
+Soal: Tampilkan 5 user terbaru.
+
+SELECT * FROM users
+ORDER BY id DESC
+LIMIT 5;
+
+🔹 4. Aggregate Function
+
+👉 Fungsi: Menghitung nilai dalam data.
+
+Soal: Hitung jumlah user.
+
+SELECT COUNT(*) AS total_users FROM users;
+
+
+Soal: Tampilkan tanggal registrasi paling awal & terbaru.
+
+SELECT MIN(id) AS first_user, MAX(id) AS last_user FROM users;
+
+🔹 5. GROUP BY + HAVING
+
+👉 Fungsi: Mengelompokkan data.
+
+Soal: Hitung jumlah order tiap user.
+
+SELECT user_id, COUNT(order_id) AS total_orders
+FROM orders
+GROUP BY user_id;
+
+
+Soal: Tampilkan user yang pesan lebih dari 2 kali.
+
+SELECT user_id, COUNT(order_id) AS total_orders
+FROM orders
+GROUP BY user_id
+HAVING COUNT(order_id) > 2;
+
+🔹 6. JOIN
+
+👉 Fungsi: Menggabungkan data dari tabel berbeda.
+
+Soal: Tampilkan username dan produk yang dipesan.
+
+SELECT u.username, o.product_name
+FROM users u
+JOIN orders o ON u.id = o.user_id;
+
+
+Soal: Tampilkan semua user walau belum order.
+
+SELECT u.username, o.product_name
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id;
+
+🔹 7. Subquery
+
+👉 Fungsi: Query di dalam query.
+
+Soal: Cari user yang pernah order.
+
+SELECT * FROM users
+WHERE id IN (SELECT user_id FROM orders);
+
+🔹 8. Constraint (Opsional)
+
+👉 Fungsi: Aturan di tabel.
+
+Soal: Tambahkan constraint panjang password minimal 6 karakter.
+
+ALTER TABLE users
+ADD CONSTRAINT chk_pass CHECK (CHAR_LENGTH(password) >= 6);

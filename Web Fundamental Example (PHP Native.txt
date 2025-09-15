@@ -1,0 +1,173 @@
+Web Fundamental Example (PHP Native & JavaScript)
+
+🔹 1. Login Page (PHP Native)
+
+Soal:
+Buat halaman login dengan requirement:
+
+Input email dan password.
+
+Email harus valid format.
+
+Password minimal 6 karakter.
+
+Jika berhasil, simpan session. Jika gagal, tampilkan error.
+
+Jawaban (PHP Native):
+
+<?php
+session_start();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // Validasi email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Email tidak valid!";
+        exit;
+    }
+
+    // Validasi password
+    if (strlen($password) < 6) {
+        echo "Password minimal 6 karakter!";
+        exit;
+    }
+
+    // Simulasi login (sebenarnya harus cek DB)
+    if ($email == "gerry@mail.com" && $password == "123456") {
+        $_SESSION['user'] = $email;
+        echo "Login berhasil, selamat datang $email";
+    } else {
+        echo "Email atau password salah!";
+    }
+}
+?>
+<form method="POST">
+    Email: <input type="text" name="email"><br>
+    Password: <input type="password" name="password"><br>
+    <button type="submit">Login</button>
+</form>
+
+🔹 2. Sign Up Page (PHP Native)
+
+Soal:
+Buat halaman sign up dengan requirement:
+
+Username tidak boleh kosong.
+
+Email harus format valid.
+
+Password minimal 8 karakter, ada huruf besar & angka.
+
+Jawaban (PHP Native):
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    if (empty($username)) {
+        echo "Username tidak boleh kosong!";
+        exit;
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        echo "Format email salah!";
+        exit;
+    }
+
+    if (strlen($password) < 8 || 
+        !preg_match("/[A-Z]/", $password) || 
+        !preg_match("/[0-9]/", $password)) {
+        echo "Password minimal 8 karakter, harus ada huruf besar & angka!";
+        exit;
+    }
+
+    echo "Registrasi berhasil! Username: $username";
+}
+?>
+<form method="POST">
+    Username: <input type="text" name="username"><br>
+    Email: <input type="text" name="email"><br>
+    Password: <input type="password" name="password"><br>
+    <button type="submit">Sign Up</button>
+</form>
+
+🔹 3. Validasi Email & Password (JavaScript di Frontend)
+
+Soal:
+Buat form login yang ketika dikirim akan dicek dengan JavaScript:
+
+Email harus mengandung @ dan .
+
+Password minimal 6 karakter.
+
+Jawaban (JavaScript):
+
+<form onsubmit="return validateForm()">
+  Email: <input type="text" id="email"><br>
+  Password: <input type="password" id="password"><br>
+  <button type="submit">Login</button>
+</form>
+
+<script>
+function validateForm() {
+    let email = document.getElementById("email").value;
+    let password = document.getElementById("password").value;
+
+    // Validasi email sederhana
+    let emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+    if (!email.match(emailPattern)) {
+        alert("Format email tidak valid!");
+        return false;
+    }
+
+    // Validasi password
+    if (password.length < 6) {
+        alert("Password minimal 6 karakter!");
+        return false;
+    }
+
+    alert("Form valid, siap submit!");
+    return true;
+}
+</script>
+
+🔹 4. Password Strength Checker (JavaScript)
+
+Soal:
+Buat validasi password secara live:
+
+Minimal 8 karakter.
+
+Harus ada huruf besar, huruf kecil, angka, dan simbol.
+
+Jawaban (JavaScript):
+
+Password: <input type="password" id="password" onkeyup="checkPassword()">
+<p id="msg"></p>
+
+<script>
+function checkPassword() {
+    let password = document.getElementById("password").value;
+    let msg = "";
+
+    if (password.length < 8) {
+        msg = "Password terlalu pendek!";
+    } else if (!/[A-Z]/.test(password)) {
+        msg = "Harus ada huruf besar!";
+    } else if (!/[a-z]/.test(password)) {
+        msg = "Harus ada huruf kecil!";
+    } else if (!/[0-9]/.test(password)) {
+        msg = "Harus ada angka!";
+    } else if (!/[!@#$%^&*]/.test(password)) {
+        msg = "Harus ada simbol!";
+    } else {
+        msg = "Password kuat!";
+    }
+
+    document.getElementById("msg").innerText = msg;
+}
+</script>
