@@ -1,0 +1,376 @@
+Pattern Shape (Per Cases)
+
+1. Segitiga Sama Kaki (Isosceles Triangle)
+
+Input: n = 5
+Output:
+
+    *    
+   ***   
+  *****  
+ ******* 
+*********
+
+
+C (Pseudocode mirip C/Java):
+
+int n = 5;
+for(int i=1; i<=n; i++){
+    for(int j=i; j<n; j++) printf(" ");   // spasi
+    for(int k=1; k<=2*i-1; k++) printf("*"); // bintang
+    printf("\n");
+}
+
+2. Segitiga Sama Kaki “Berbayang” (Hollow Isosceles Triangle)
+
+Input: n = 5
+Output:
+
+    *    
+   * *   
+  *   *  
+ *     * 
+*********
+
+
+C:
+
+int n = 5;
+for(int i=1; i<=n; i++){
+    for(int j=i; j<n; j++) printf(" ");
+    for(int k=1; k<=2*i-1; k++){
+        if(k==1 || k==2*i-1 || i==n) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+
+3. Segitiga Sama Kaki Terbalik
+
+Input: n = 5
+Output:
+
+*********
+ ******* 
+  *****  
+   ***   
+    *    
+
+
+C:
+
+int n = 5;
+for(int i=n; i>=1; i--){
+    for(int j=n; j>i; j--) printf(" ");
+    for(int k=1; k<=2*i-1; k++) printf("*");
+    printf("\n");
+}
+
+4. Segitiga Sama Kaki Terbalik “Berbayang” (Hollow Inverted Isosceles)
+
+Input: n = 5
+Output:
+
+*********
+ *     * 
+  *   *  
+   * *   
+    *    
+
+
+C:
+
+int n = 5;
+for(int i=n; i>=1; i--){
+    for(int j=n; j>i; j--) printf(" ");
+    for(int k=1; k<=2*i-1; k++){
+        if(k==1 || k==2*i-1 || i==n) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+
+5. Segitiga Siku-Siku (Right Triangle)
+
+Input: n = 5
+Output:
+
+*
+**
+***
+****
+*****
+
+
+C:
+
+int n = 5;
+for(int i=1; i<=n; i++){
+    for(int j=1; j<=i; j++) printf("*");
+    printf("\n");
+}
+
+6. Segitiga Siku-Siku dengan Tengah Kosong
+
+Input: n = 5
+Output:
+
+*
+**
+* *
+*  *
+*****
+
+
+C:
+
+int n = 5;
+for(int i=1; i<=n; i++){
+    for(int j=1; j<=i; j++){
+        if(j==1 || j==i || i==n) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+
+7. Segitiga Siku-Siku Atas & Bawah “Disambung” (tanpa spasi tengah)
+
+Input: n = 5
+Output:
+
+*
+**
+***
+****
+*****
+****
+***
+**
+*
+
+
+C:
+
+int n = 5;
+// naik
+for(int i=1; i<=n; i++){
+    for(int j=1; j<=i; j++) printf("*");
+    printf("\n");
+}
+// turun
+for(int i=n-1; i>=1; i--){
+    for(int j=1; j<=i; j++) printf("*");
+    printf("\n");
+}
+
+8. Segitiga Atas & Bawah “Disambung” tapi Hollow
+
+Input: n = 5
+Output:
+
+*
+**
+* *
+*  *
+*****
+*  *
+* *
+**
+*
+
+
+C:
+
+int n = 5;
+// naik
+for(int i=1; i<=n; i++){
+    for(int j=1; j<=i; j++){
+        if(j==1 || j==i || i==n) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+// turun
+for(int i=n-1; i>=1; i--){
+    for(int j=1; j<=i; j++){
+        if(j==1 || j==i || i==n) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+
+9. Diamond (Ketupat Bintang)
+
+Input: n = 5
+Output:
+
+    *
+   ***
+  *****
+ *******
+*********
+ *******
+  *****
+   ***
+    *
+
+
+C:
+
+int n = 5;
+// segitiga sama kaki
+for(int i=1; i<=n; i++){
+    for(int j=i; j<n; j++) printf(" ");
+    for(int k=1; k<=2*i-1; k++) printf("*");
+    printf("\n");
+}
+// segitiga terbalik
+for(int i=n-1; i>=1; i--){
+    for(int j=n; j>i; j--) printf(" ");
+    for(int k=1; k<=2*i-1; k++) printf("*");
+    printf("\n");
+}
+
+10. Hollow Diamond (Ketupat Kosong)
+
+Input: n = 5
+Output:
+
+    *
+   * *
+  *   *
+ *     *
+*       *
+ *     *
+  *   *
+   * *
+    *
+
+
+C:
+
+int n = 5;
+// atas
+for(int i=1; i<=n; i++){
+    for(int j=i; j<n; j++) printf(" ");
+    for(int k=1; k<=2*i-1; k++){
+        if(k==1 || k==2*i-1) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+// bawah
+for(int i=n-1; i>=1; i--){
+    for(int j=n; j>i; j--) printf(" ");
+    for(int k=1; k<=2*i-1; k++){
+        if(k==1 || k==2*i-1) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+
+11. X Pattern
+
+Input: n = 5
+Output:
+
+*   *
+ * * 
+  *  
+ * * 
+*   *
+
+
+C:
+
+int n = 5;
+for(int i=1; i<=n; i++){
+    for(int j=1; j<=n; j++){
+        if(j==i || j==n-i+1) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+
+12. Persegi (Square)
+
+Input: n = 5
+Output:
+
+*****
+*****
+*****
+*****
+*****
+
+
+C:
+
+int n = 5;
+for(int i=1; i<=n; i++){
+    for(int j=1; j<=n; j++) printf("*");
+    printf("\n");
+}
+
+13. Persegi Tengah Kosong (Hollow Square)
+
+Input: n = 5
+Output:
+
+*****
+*   *
+*   *
+*   *
+*****
+
+
+C:
+
+int n = 5;
+for(int i=1; i<=n; i++){
+    for(int j=1; j<=n; j++){
+        if(i==1 || i==n || j==1 || j==n) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
+
+14. Persegi Panjang (Rectangle)
+
+Input: rows = 3, cols = 7
+Output:
+
+*******
+*******
+*******
+
+
+C:
+
+int rows = 3, cols = 7;
+for(int i=1; i<=rows; i++){
+    for(int j=1; j<=cols; j++) printf("*");
+    printf("\n");
+}
+
+15. Persegi Panjang Tengah Kosong (Hollow Rectangle)
+
+Input: rows = 4, cols = 7
+Output:
+
+*******
+*     *
+*     *
+*******
+
+
+C:
+
+int rows = 4, cols = 7;
+for(int i=1; i<=rows; i++){
+    for(int j=1; j<=cols; j++){
+        if(i==1 || i==rows || j==1 || j==cols) printf("*");
+        else printf(" ");
+    }
+    printf("\n");
+}
