@@ -1,5 +1,10 @@
 Kode Backend (PHP)
-File assets/php/sales_backend.php akan berisi logika untuk mengambil data penjualan dari database. Buatlah fungsi yang bisa menerima ID pengguna dan mengembalikan total penjualan serta jumlah transaksi.
+File assets/php/sales_backend.php 
+akan berisi logika untuk mengambil data 
+penjualan dari database. 
+Buatlah fungsi yang bisa menerima ID 
+pengguna dan mengembalikan total penjualan 
+serta jumlah transaksi.
 <?php
 // Pastikan file init.php sudah terhubung
 require_once __DIR__ . '/../../init.php';
