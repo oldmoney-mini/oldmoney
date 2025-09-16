@@ -1,0 +1,71 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // 1. Fitur Modal Info (Asynchronous/AJAX)
+    const salesInfoModal = new bootstrap.Modal(document.getElementById('salesInfoModal'));
+    const totalSalesElem = document.getElementById('total-sales');
+    const totalTransactionsElem = document.getElementById('total-transactions');
+
+    document.querySelectorAll('.view-info').forEach(button => {
+        button.addEventListener('click', function() {
+            const userId = this.dataset.userId;
+            
+            // Lakukan permintaan AJAX ke backend PHP
+            fetch(`../assets/php/sales_backend.php?action=get_sales_info&user_id=${userId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        totalSalesElem.textContent = formatCurrency(data.data.total_sales);
+                        totalTransactionsElem.textContent = data.data.total_transactions;
+                        salesInfoModal.show();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat mengambil data.');
+                });
+        });
+    });
+
+    // Fungsi helper untuk format mata uang (opsional)
+    function formatCurrency(amount) {
+        return new Intl.NumberFormat('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            minimumFractionDigits: 0
+        }).format(amount);
+    }
+    
+    // 2. Fitur Hapus User secara Asinkron (AJAX) dengan Konfirmasi
+    document.querySelectorAll('.delete-user').forEach(button => {
+        button.addEventListener('click', function() {
+            const userId = this.dataset.userId;
+            
+            if (confirm('Apakah Anda yakin ingin menghapus data pengguna ini?')) {
+                // Lakukan permintaan AJAX POST ke backend PHP
+                const formData = new FormData();
+                formData.append('action', 'delete_user');
+                formData.append('user_id', userId);
+                
+                fetch('../assets/php/sales_backend.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert(data.message);
+                        // Hapus baris dari tabel
+                        this.closest('tr').remove();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Terjadi kesalahan saat menghapus data.');
+                });
+            }
+        });
+    });
+});
