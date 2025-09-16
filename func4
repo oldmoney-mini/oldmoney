@@ -1,0 +1,24 @@
+functions.php (Fungsi Bantuan)
+File ini berisi fungsi-fungsi yang dapat 
+digunakan berulang kali, seperti require_login()
+dan verify_csrf().
+
+<?php
+// functions.php
+
+function require_login() {
+    // Fungsi ini akan memeriksa apakah user sudah login
+    if (!isset($_SESSION['user_id'])) {
+        header('Location: login.php'); // Arahkan ke halaman login
+        exit();
+    }
+}
+
+function verify_csrf() {
+    // Fungsi ini bisa digunakan untuk mengecek CSRF token
+    // (Implementasinya perlu dikembangkan lebih lanjut)
+    // Contoh sederhana:
+    // if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    //     die('Invalid CSRF token');
+    // }
+}
