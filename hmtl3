@@ -1,0 +1,75 @@
+<?php
+require_once __DIR__ . '/../../init.php';
+require_once __DIR__ . '/../../require_login.php';
+
+// Data statis untuk contoh, ganti dengan data dari database Anda
+$users = [
+    ['id' => 1, 'name' => 'John Doe'],
+    ['id' => 2, 'name' => 'Jane Smith'],
+    ['id' => 3, 'name' => 'Peter Jones']
+];
+
+unset($_SESSION['title']);
+$_SESSION['title'] = 'user';
+?>
+<!doctype html>
+<html lang="id">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Data User</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/sales_index.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Daftar Pengguna</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($users as $user): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($user['id']); ?></td>
+                    <td><?php echo htmlspecialchars($user['name']); ?></td>
+                    <td>
+                        <button type="button" class="btn btn-info btn-sm view-info" data-user-id="<?php echo htmlspecialchars($user['id']); ?>">
+                            Info
+                        </button>
+                        <button type="button" class="btn btn-danger btn-sm delete-user" data-user-id="<?php echo htmlspecialchars($user['id']); ?>">
+                            Hapus
+                        </button>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal fade" id="salesInfoModal" tabindex="-1" aria-labelledby="salesInfoModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="salesInfoModalLabel">Informasi Penjualan</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Total Penjualan: <strong id="total-sales"></strong></p>
+                    <p>Jumlah Transaksi: <strong id="total-transactions"></strong></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/sales_index.js"></script>
+</body>
+</html>
