@@ -1,0 +1,142 @@
+<?php
+
+// Pastikan file init.php sudah ada dan berisi konfigurasi database
+require_once __DIR__ . '/../init.php';
+
+// Fungsi untuk memastikan pengguna sudah login
+require_login();
+
+// Hapus dan atur ulang judul sesi
+unset($_SESSION['title']);
+$_SESSION['title'] = 'KPI';
+
+/**
+ * TODO (Opsional) Lakukan inovasi pada halaman KPI
+ *
+ * Instruksi:
+ * - Anda diberikan kebebasan untuk mengembangkan halaman ini jika Anda memiliki sisa waktu yang tersedia
+ * - Silakan berinovasi sebebas-bebasnya untuk meningkatkan halaman KPI ini.
+ * - Anda dapat menambahkan fitur, visualisasi, insight, atau peningkatan lain sesuai kreativitas Anda.
+ * - Tujuan: Membuat halaman KPI lebih informatif, interaktif, dan bermanfaat bagi pengguna.
+ */
+
+// Bagian ini akan mengambil data dari database
+// Ini adalah bagian yang diubah untuk menambahkan informasi tambahan
+$sql = "
+    SELECT 
+        u.id, 
+        u.name, 
+        u.email, 
+        u.role,
+        COUNT(DISTINCT s.id) AS total_transaksi,
+        COALESCE(SUM(si.qty * si.price), 0) AS total_penjualan,
+        AVG(si.qty * si.price) AS rata_rata_penjualan_per_item,
+        COUNT(si.id) AS total_item_terjual,
+        COUNT(DISTINCT s.created_by) AS total_penjual_aktif
+    FROM 
+        users u
+    LEFT JOIN 
+        sales s ON s.created_by = u.id
+    LEFT JOIN 
+        sale_items si ON si.sale_id = s.id
+    GROUP BY 
+        u.id, u.name, u.email, u.role
+    ORDER BY 
+        total_penjualan DESC
+";
+
+// Jalankan query dan ambil semua hasilnya
+$rows = $pdo->query($sql)->fetchAll();
+
+// Bagian ini akan menampilkan data sebagai tabel HTML.
+// Ini adalah bagian yang diubah untuk menampilkan fitur visualisasi, insight, atau peningkatan lain
+?>
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title><?= $_SESSION['title'] ?></title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .kpi-container { padding: 20px; }
+        h1 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .insight-box { 
+            background-color: #e6f7ff; 
+            border-left: 5px solid #007bff; 
+            padding: 15px; 
+            margin-top: 20px; 
+            font-style: italic; 
+        }
+        /* Tambahkan style untuk visualisasi sederhana, seperti bar progress */
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            border-radius: 5px;
+        }
+        .progress-bar-fill {
+            height: 20px;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 20px;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="kpi-container">
+    <h1>Laporan KPI Penjual</h1>
+
+    <div class="insight-box">
+        <h3>Ringkasan KPI</h3>
+        <p>Berdasarkan data, terdapat **<?= count($rows) ?>** penjual terdaftar. Total penjualan tertinggi adalah oleh **<?= $rows[0]['name'] ?>** dengan total **Rp<?= number_format($rows[0]['total_penjualan'], 0, ',', '.') ?>**.</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nama</th>
+                <th>Peran</th>
+                <th>Email</th>
+                <th>Total Transaksi</th>
+                <th>Total Penjualan</th>
+                <th>Rata-rata Penjualan per Item</th>
+                <th>Visualisasi Penjualan</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($rows as $row): ?>
+                <tr>
+                    <td><?= htmlspecialchars($row['name']) ?></td>
+                    <td><?= htmlspecialchars($row['role']) ?></td>
+                    <td><?= htmlspecialchars($row['email']) ?></td>
+                    <td><?= number_format($row['total_transaksi'], 0, ',', '.') ?></td>
+                    <td>Rp<?= number_format($row['total_penjualan'], 0, ',', '.') ?></td>
+                    <td>Rp<?= number_format($row['rata_rata_penjualan_per_item'], 0, ',', '.') ?></td>
+                    <td>
+                        <div class="progress-bar">
+                            <?php
+                                // Hitung persentase dari total penjualan maksimum
+                                $max_penjualan = $rows[0]['total_penjualan'];
+                                $persentase = ($max_penjualan > 0) ? ($row['total_penjualan'] / $max_penjualan) * 100 : 0;
+                            ?>
+                            <div class="progress-bar-fill" style="width: <?= $persentase ?>%;">
+                                <?= round($persentase, 1) ?>%
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>
+
