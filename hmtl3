@@ -1,3 +1,9 @@
+File public/sales/index.php
+Ini adalah file HTML utama yang akan 
+menampilkan tabel data. Anda perlu menambahkan
+ tombol 'info' dan membuat struktur modal 
+yang akan diisi data oleh JavaScript.
+
 <?php
 require_once __DIR__ . '/../../init.php';
 require_once __DIR__ . '/../../require_login.php';
