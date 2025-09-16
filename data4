@@ -1,0 +1,37 @@
+init.php (Pengaturan Dasar)
+File ini biasanya berisi koneksi database 
+dan fungsi-fungsi penting lainnya. Pastikan 
+konfigurasi database sudah benar.
+
+<?php
+// init.php
+
+// Pengaturan error reporting
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Konfigurasi database
+$host = 'localhost';
+$db   = 'nama_database_anda';
+$user = 'user_database';
+$pass = 'password_database';
+$charset = 'utf8mb4';
+
+$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
+$options = [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+    PDO::ATTR_EMULATE_PREPARES   => false,
+];
+
+try {
+    $pdo = new PDO($dsn, $user, $pass, $options);
+} catch (\PDOException $e) {
+    throw new \PDOException($e->getMessage(), (int)$e->getCode());
+}
+
+// Mulai session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
